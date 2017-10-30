@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pendu WEB2</title>
+</head>
+<body>
+
+    <div>
+        <span>Vies : </span>
+        <span id="life">10</span>
+    </div>
+    <br>
+
+    <div class="btn" style="border: 1px solid black;cursor: pointer; padding: 1% 2%; width: 50px; text-align: center">Valider</div>
+    <br>
+    <div id="input"></div>
+    <br>
+    <div id="word"></div>
+
+
+    <script>
+        const Input = document.getElementById('input');
+        const Element = document.getElementById('word');
+        const Button = document.querySelector('.btn');
+        const Life = document.getElementById('life');
+        const LifeValue = document.getElementById('life').textContent;
+        const words = ['Manger', 'Sortie', 'Boire', 'Chat', 'Chien'];
+        const formatWord = localStorage.getItem('WordLib').split(',');
+        const word = formatWord[getRandomIntInclusive(0, 4)];
+
+        window.localStorage.setItem('WordLib', words);
+        Element.innerHTML = word;
+
+        setInput(word, Input);
+        Button.addEventListener('click', confirmLetter);
+
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function setInput(word, pos) {
+            for (var i = 0; i < word.length; i++) {
+                const yay = document.createElement('input');
+                yay.setAttribute('type', 'text');
+                yay.setAttribute('class', 'letterToTest');
+                yay.style.width = '20px';
+                pos.appendChild(yay);
+            }
+        }
+        function decCount(el) {
+            Life.innerHTML = el -1
+        }
+
+        function confirmLetter() {
+            const test_letter = document.querySelectorAll('.letterToTest');
+            for (var i = 0; i < test_letter.length; i++) {
+                if (test_letter[i].value === word[i]) {
+                    alert('Bonne lettre')
+                }
+            }
+        }
+
+
+
+
+    </script>
+</body>
+</html>
